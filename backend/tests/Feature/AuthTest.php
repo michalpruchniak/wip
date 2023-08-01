@@ -39,11 +39,26 @@ class AuthTest extends TestCase
         $response->assertStatus(401);
     }
 
-    private function logged_in_user($password)
+    public function test_entering_wrong_login_data_triggers_validation_errors()
+    {
+        $response = $this->logged_in_user('', null);
+        $response->assertInvalid([
+            'email' => 'The email field is required.',
+            'password' => 'The password field is required.'
+        ]);
+
+        $response2 = $this->logged_in_user('a', 'helloWorld');
+        $response2->assertInvalid([
+            'email' => 'The email field must be a valid email address.',
+            'password' => 'The password field must be between 4 and 45 characters.'
+        ]);
+    }
+
+    private function logged_in_user($password = '', $email = '')
     {
         $user = User::factory()->create();
         $response = $this->postJson('/api/login', [
-            'email' => $user->email,
+            'email' => $email === '' ? $user->email : $email,
             'password' => $password
         ]);
 
