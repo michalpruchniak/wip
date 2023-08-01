@@ -27,7 +27,7 @@ class AuthController extends Controller
         ])->withCookie($cookie);
     }
 
-    public function userDetails(Request $request)
+    public function users(Request $request)
     {
         return $request->user();
     }
