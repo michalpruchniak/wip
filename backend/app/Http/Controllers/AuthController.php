@@ -9,11 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-    public function hello()
-    {
-        return 'Hello Worlddd';
-    }
-
     public function login(Request $request)
     {
         if (!Auth::attempt($request->only('email', 'password'))) {
