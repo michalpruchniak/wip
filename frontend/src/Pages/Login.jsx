@@ -38,15 +38,15 @@ const Login = () => {
       </Helmet>
       <h1 className="text-center">Zaloguj się</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div class="mt-3">
+        <div className="mt-3">
           {wrongCreditionals === true && (
-            <div class="alert alert-danger">
+            <div className="alert alert-danger">
               Nie udało się zalogować. Prawdopodobnie podałeś zły adres email
               lub hasło.
             </div>
           )}
           {login === true && (
-            <div class="alert alert-success">
+            <div className="alert alert-success">
               Udało Ci się zalogować na konto.
             </div>
           )}
