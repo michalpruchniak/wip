@@ -6,6 +6,7 @@ import Layout from "../Layout/Layout";
 import TesterForm from "./_partials/_testerForm";
 import DeveloperForm from "./_partials/_developerForm";
 import PMForm from "./_partials/_pmForm";
+import Message from "../Components/Message";
 
 const Register = () => {
   const {
@@ -15,9 +16,7 @@ const Register = () => {
   } = useForm();
 
   const [job, setJob] = useState("1");
-
-  const [wrongCreditionals, setWrongCreditionals] = useState(false);
-  const [login, setLogin] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const onSubmit = async (value) => {
     console.log(value);
@@ -36,15 +35,9 @@ const Register = () => {
         <h1 className="text-center">Zarejestruj się</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mt-3">
-            {wrongCreditionals === true && (
-              <div className="alert alert-danger">
-                Nie udało się zalogować. Prawdopodobnie podałeś zły adres email
-                lub hasło.
-              </div>
-            )}
-            {login === true && (
+            {success === true && (
               <div className="alert alert-success">
-                Udało Ci się zalogować na konto.
+                Udało Ci się utworzyć konto.
               </div>
             )}
           </div>
@@ -62,18 +55,14 @@ const Register = () => {
               })}
             />
             {errors.name?.type === "required" && (
-              <div className="alert alert-danger">Imię jest wymagane.</div>
+              <Message>Imię jest wymagane.</Message>
             )}
             {errors.name?.type === "minLength" && (
-              <div className="alert alert-danger">
-                Minimalna długość imienia to 3 znaki.
-              </div>
+              <Message>Minimalna długość imienia to 3 znaki.</Message>
             )}
 
             {errors.name?.type === "maxLength" && (
-              <div className="alert alert-danger">
-                Maksymalna długość imienia to 30 znaków.
-              </div>
+              <Message>Maksymalna długość imienia to 30 znaków.</Message>
             )}
           </div>
           <div className="form-group mt-3">
@@ -90,18 +79,14 @@ const Register = () => {
               })}
             />
             {errors.lastname?.type === "required" && (
-              <div className="alert alert-danger">Nazwisko jest wymagane.</div>
+              <Message>Nazwisko jest wymagane.</Message>
             )}
             {errors.lastname?.type === "minLength" && (
-              <div className="alert alert-danger">
-                Minimalna długość nazwiska to 3 znaki.
-              </div>
+              <Message>Minimalna długość nazwiska to 3 znaki.</Message>
             )}
 
             {errors.lastname?.type === "maxLength" && (
-              <div className="alert alert-danger">
-                Maksymalna długość nazwiska to 35 znaków.
-              </div>
+              <Message>Maksymalna długość nazwiska to 35 znaków.</Message>
             )}
           </div>
           <div className="form-group mt-3">
@@ -114,14 +99,10 @@ const Register = () => {
               {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
             />
             {errors.email?.type === "required" && (
-              <div className="alert alert-danger">
-                Adres email jest wymagany.
-              </div>
+              <Message>Adres email jest wymagany.</Message>
             )}
             {errors.email?.type === "pattern" && (
-              <div className="alert alert-danger">
-                To nie jest poprawny format adresu email.
-              </div>
+              <Message>To nie jest poprawny format adresu email.</Message>
             )}
           </div>
           <div className="form-group mt-3">
@@ -148,9 +129,7 @@ const Register = () => {
               </select>
             </div>
             {errors.job?.type === "required" && (
-              <div className="alert alert-danger">
-                Stanowisko jest wymagane.
-              </div>
+              <Message>Stanowisko jest wymagane.</Message>
             )}
           </div>
           {job === "1" && <TesterForm register={register} errors={errors} />}

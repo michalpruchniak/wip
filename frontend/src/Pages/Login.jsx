@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useState } from "react";
 import Layout from "../Layout/Layout";
+import Message from "../Components/Message";
 
 const Login = () => {
   const {
@@ -42,10 +43,10 @@ const Login = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mt-3">
             {wrongCreditionals === true && (
-              <div className="alert alert-danger">
+              <Message>
                 Nie udało się zalogować. Prawdopodobnie podałeś zły adres email
                 lub hasło.
-              </div>
+              </Message>
             )}
             {login === true && (
               <div className="alert alert-success">
@@ -63,14 +64,10 @@ const Login = () => {
               {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
             />
             {errors.email?.type === "required" && (
-              <div className="alert alert-danger">
-                Adres email jest wymagany.
-              </div>
+              <Message>Adres email jest wymagany.</Message>
             )}
             {errors.email?.type === "pattern" && (
-              <div className="alert alert-danger">
-                To nie jest poprawny format adresu email.
-              </div>
+              <Message>To nie jest poprawny format adresu email.</Message>
             )}
           </div>
 
@@ -88,17 +85,13 @@ const Login = () => {
               })}
             />
             {errors.password?.type === "required" && (
-              <div className="alert alert-danger">Hasło jest wymagane.</div>
+              <Message>Hasło jest wymagane.</Message>
             )}
             {errors.password?.type === "minLength" && (
-              <div className="alert alert-danger">
-                Minimalna długość hasła to 4 znaki.
-              </div>
+              <Message>Minimalna długość hasła to 4 znaki.</Message>
             )}
             {errors.password?.type === "maxLength" && (
-              <div className="alert alert-danger">
-                Maksymalna długość hasła to 45 znaków.
-              </div>
+              <Message>Maksymalna długość hasła to 45 znaków.</Message>
             )}
           </div>
 
