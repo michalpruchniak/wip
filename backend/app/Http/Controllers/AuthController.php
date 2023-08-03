@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
+use App\Libraries\UserBuilder\UserBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -26,6 +28,30 @@ class AuthController extends Controller
         return \response([
             'jwt' => $token
         ])->withCookie($cookie);
+    }
+
+    public function register(Request $request)
+    {
+        $user = new UserBuilder();
+
+        $user->setElements([
+            'email' => $request->email,
+            'password' => Hash::make('password'),
+            'name' => $request->name,
+            'lastname' => $request->lastname,
+            'description' => $request->description,
+            'job' => $request->job,
+            'testing_systems' => $request->testing_systems,
+            'raporting_systems' => $request->raporting_systems,
+            'seleniun' => $request->seleniun,
+            'ide' => $request->ide,
+            'programming_languages' => $request->programming_languages,
+            'mysql' => $request->mysql,
+            'methodology' => $request->methodology,
+            'scrum' => $request->scrum,
+        ]);
+
+        return $user->build();
     }
 
     public function users(Request $request)
