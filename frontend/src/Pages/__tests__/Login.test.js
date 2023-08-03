@@ -9,7 +9,7 @@ import invalidCredentials from "../../../__mocks__/invalidCredentials.json";
 
 const axiosMock = new mockAxios(axios);
 
-test("render form page", () => {
+test("render login page", () => {
   render(
     <MemoryRouter>
       <Login />
@@ -96,10 +96,9 @@ test("wrong creditionals", async () => {
   fireEvent.click(submitButton);
 
   await waitFor(() => {
-    expect(
-      screen.getByText(
-        "Nie udało się zalogować. Prawdopodobnie podałeś zły adres email lub hasło."
-      )
-    ).toBeInTheDocument();
+    const wrongCreditionals = screen.getByText(
+      "Nie udało się zalogować. Prawdopodobnie podałeś zły adres email lub hasło."
+    );
+    expect(wrongCreditionals).toBeInTheDocument();
   });
 });
