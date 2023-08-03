@@ -2,81 +2,42 @@
 
 namespace App\Libraries\UserBuilder;
 
-use App\Models\Profile;
-use App\Models\User;
-use Exception;
-use Illuminate\Support\Facades\Hash;
-
 class UserBuilder
 {
-    private $user;
-    private $profile;
+    protected $userFields = ['email', 'password'];
+    protected $profileFields = ['name', 'lastname', 'email', 'description', 'job'];
 
-    private $userFields = ['email', 'password'];
-    private $profileFields = [
-        'name',
-        'lastname',
-        'email',
-        'description',
-        'job',
-        'testing_systems',
-        'raporting_systems',
-        'selenium',
-        'ide',
-        'programming_languages',
-        'mysql',
-        'methodology',
-        'scrum'
-    ];
+    protected $user = [];
+    protected $profile = [];
 
-    public function __construct()
+    public function setElements(array $data): void
     {
-        $this->user = new Product(new User());
-        $this->profile = new Product(new Profile());
-    }
-
-    public function setElements($array)
-    {
-        foreach ($array as $key => $value) {
+        foreach ($data as $key => $value) {
             if (in_array($key, $this->userFields)) {
-                $this->user->setElement($key, $value);
+                $this->user[$key] = $value;
             }
 
             if (in_array($key, $this->profileFields)) {
-                $this->profile->setElement($key, $value);
+                $this->profile[$key] = $value;
             }
         }
     }
 
-    public function build()
+    public function build(): bool
     {
-        $success = true;
-        $this->generateEmptyData();
-        try {
-            $this->profile->save();
-            $this->user->setElement('profile_id', $this->profile->getProduct()->id);
-            $this->user->save();
-        } catch (Exception $e) {
-            $this->errors = false;
-            $success = 'Nie udało się';
-        }
+        $userService = new UserService();
+        $success = $userService->create($this->getUserData(), $this->getProfileData());
+
         return $success;
     }
 
-    public function getUser()
+    private function getUserData(): array
     {
-        $this->user->getProduct();
+        return $this->user;
     }
 
-    private function generateEmptyData()
+    private function getProfileData(): array
     {
-
-        if (empty($this->user->getProduct()->password)) {
-            $this->user->getProduct()->password = Hash::make('password');
-        }
-
-        if (empty($this->user->getProduct()->email)) {
-            $this->user->getProduct()->email = 'testemail' . rand(1, 9999) . '@' . 'a' . rand(1, 99) . '.pl';
-        }
+        return $this->profile;
     }
 }
