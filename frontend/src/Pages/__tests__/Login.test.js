@@ -2,6 +2,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Login from "../Login";
 import axios from "axios";
 import mockAxios from "axios-mock-adapter";
+import { MemoryRouter } from "react-router-dom";
 
 import jwt from "../../../__mocks__/jwt.json";
 import invalidCredentials from "../../../__mocks__/invalidCredentials.json";
@@ -9,15 +10,23 @@ import invalidCredentials from "../../../__mocks__/invalidCredentials.json";
 const axiosMock = new mockAxios(axios);
 
 test("render form page", () => {
-  render(<Login />);
-  const header = screen.getByText(/Zaloguj się/i);
+  render(
+    <MemoryRouter>
+      <Login />
+    </MemoryRouter>
+  );
+  const header = screen.getByText("Zaloguj się");
   expect(header).toBeInTheDocument();
 });
 
 test("check login validation", async () => {
-  render(<Login />);
+  render(
+    <MemoryRouter>
+      <Login />
+    </MemoryRouter>
+  );
 
-  const submitButton = screen.getByRole("submit", { value: "Zaloguj" });
+  const submitButton = document.querySelector('button[type="submit"]');
   fireEvent.click(submitButton);
 
   const errorAlertEmail = await waitFor(() =>
@@ -52,10 +61,14 @@ test("check login validation", async () => {
 
 test("correclty logged-in", async () => {
   axiosMock.onPost("/login").reply(200, { jwt: jwt.jwt });
-  render(<Login />);
+  render(
+    <MemoryRouter>
+      <Login />
+    </MemoryRouter>
+  );
   const emailInput = screen.getByLabelText("Adres email");
   const passwordInput = screen.getByLabelText("Hasło");
-  const submitButton = screen.getByRole("submit", { value: "Zaloguj" });
+  const submitButton = document.querySelector('button[type="submit"]');
 
   fireEvent.change(emailInput, { target: { value: "admin@admin.pl" } });
   fireEvent.change(passwordInput, { target: { value: "password" } });
@@ -69,10 +82,14 @@ test("correclty logged-in", async () => {
 test("wrong creditionals", async () => {
   axiosMock.onPost("/login").reply(400, { error: invalidCredentials.error });
 
-  render(<Login />);
+  render(
+    <MemoryRouter>
+      <Login />
+    </MemoryRouter>
+  );
   const emailInput = screen.getByLabelText("Adres email");
   const passwordInput = screen.getByLabelText("Hasło");
-  const submitButton = screen.getByRole("submit", { value: "Zaloguj" });
+  const submitButton = document.querySelector('button[type="submit"]');
 
   fireEvent.change(emailInput, { target: { value: "admin@admin.pl" } });
   fireEvent.change(passwordInput, { target: { value: "hello world" } });
