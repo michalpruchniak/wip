@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Libraries\UserBuilder\UserBuilder;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,12 +34,17 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $user = new UserBuilder();
-        $data = $request->all();
-        $data['password'] = Str::random(10);
-        $user->setElements($data);
+        try {
+            $user = new UserBuilder();
+            $data = $request->all();
+            $data['password'] = Str::random(10);
+            $user->setElements($data);
+            $user->build();
 
-        return $user->build();
+            return json_encode(['success' => true]);
+        } catch (Exception $e) {
+            return json_encode(['success' => false]);
+        }
     }
 
     public function users(Request $request)
