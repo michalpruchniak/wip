@@ -54,6 +54,44 @@ class AuthTest extends TestCase
         ]);
     }
 
+    /*
+        Nie pokrywam aplikacji całkowicie testami, ponieważ to jest tylko aplikacja
+        pokazowa, a nie produkcyjna
+    */
+
+    public function test_correctly_register_user()
+    {
+        $response = $this->postJson('/api/register', [
+            'email' => fake()->unique()->safeEmail(),
+            'name' => fake()->name,
+            'lastname' => fake()->lastname,
+            'job' => 1,
+            'testing_systems' => 'Lorem ipsum',
+            'raporting_systems' => 'Lorem ipsum',
+        ]);
+
+        $response->assertJson([
+            'success' => true
+        ]);
+    }
+
+    public function test_validation_until_register_user()
+    {
+        $response = $this->postJson('/api/register', [
+            'job' => 5
+        ]);
+
+        $response->assertInvalid([
+            'email' => 'The email field is required.',
+            'name' => 'The name field is required.',
+            'lastname' => 'The lastname field is required.',
+            'testing_systems' => 'The testing systems field is required when job is 1.',
+            'raporting_systems' => 'The raporting systems field is required when job is 1.'
+        ]);
+
+        $response->assertValid(['job']);
+    }
+
     private function logged_in_user($password = '', $email = '')
     {
         $user = User::factory()->create();
