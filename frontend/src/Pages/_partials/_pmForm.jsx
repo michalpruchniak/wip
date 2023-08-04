@@ -7,7 +7,6 @@ const PMForm = ({ register, errors }) => {
           id="methodology"
           type="string"
           className="form-control"
-          name="methodology"
           {...register("methodology", {
             required: true,
             minLength: 3,
@@ -35,30 +34,29 @@ const PMForm = ({ register, errors }) => {
       </div>
 
       <div className="form-group mt-3">
-        <label htmlFor="pm_raporting_systems">Systemy raportowe</label>
+        <label htmlFor="raporting_systems">Systemy raportowe</label>
         <input
-          id="pm_raporting_systems"
+          id="raporting_systems"
           type="string"
           className="form-control"
-          name="pm_raporting_systems"
-          {...register("pm_raporting_systems", {
+          {...register("raporting_systems", {
             required: true,
             minLength: 3,
             maxLength: 100,
           })}
         />
-        {errors.pm_raporting_systems?.type === "required" && (
+        {errors.raporting_systems?.type === "required" && (
           <div className="alert alert-danger">
             Pole <i>systemy raportujące</i> jest wymagane.
           </div>
         )}
-        {errors.pm_raporting_systems?.type === "minLength" && (
+        {errors.raporting_systems?.type === "minLength" && (
           <div className="alert alert-danger">
             Minimalna długość pola <i>systemy raportujące</i> to 3 znaki.
           </div>
         )}
 
-        {errors.pm_raporting_systems?.type === "maxLength" && (
+        {errors.raporting_systems?.type === "maxLength" && (
           <div className="alert alert-danger">
             Maksymalna długość pola <i>systemy raportujące</i> to 100 znaków.
           </div>

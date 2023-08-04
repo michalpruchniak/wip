@@ -10,6 +10,7 @@ import Message from "../Components/Message";
 
 const Register = () => {
   const {
+    reset,
     register,
     handleSubmit,
     formState: { errors },
@@ -23,6 +24,16 @@ const Register = () => {
   };
 
   const handleJobChange = (event) => {
+    reset({
+      testing_systems: null,
+      ide: null,
+      raporting_systems: null,
+      programming_languages: null,
+      mysql: null,
+      methodology: null,
+      scrum: null,
+    });
+
     setJob(event.target.value);
   };
 
@@ -47,7 +58,6 @@ const Register = () => {
               id="name"
               type="string"
               className="form-control"
-              name="name"
               {...register("name", {
                 required: true,
                 minLength: 3,
@@ -71,7 +81,6 @@ const Register = () => {
               id="lastname"
               type="string"
               className="form-control"
-              name="lastname"
               {...register("lastname", {
                 required: true,
                 minLength: 3,
@@ -95,7 +104,6 @@ const Register = () => {
               id="email"
               type="string"
               className="form-control"
-              name="email"
               {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
             />
             {errors.email?.type === "required" && (

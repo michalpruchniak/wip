@@ -7,7 +7,6 @@ const DeveloperForm = ({ register, errors }) => {
           id="ide"
           type="string"
           className="form-control"
-          name="ide"
           {...register("ide", {
             required: true,
             minLength: 3,
@@ -38,7 +37,6 @@ const DeveloperForm = ({ register, errors }) => {
           id="programming_languages"
           type="string"
           className="form-control"
-          name="programming_languages"
           {...register("programming_languages", {
             required: true,
             minLength: 3,

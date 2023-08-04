@@ -4,11 +4,11 @@ namespace App\Libraries\UserBuilder;
 
 class UserBuilder
 {
-    protected $userFields = ['email', 'password'];
-    protected $profileFields = ['name', 'lastname', 'email', 'description', 'job'];
+    private $userFields = ['email', 'password'];
+    private $profileFields = ['name', 'lastname', 'email', 'description', 'job', 'testing_systems', 'raporting_systems', 'selenium', 'ide', 'programming_languages', 'mysql', 'methodology', 'scrum'];
 
-    protected $user = [];
-    protected $profile = [];
+    private $user = [];
+    private $profile = [];
 
     public function setElements(array $data): void
     {

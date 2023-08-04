@@ -6,7 +6,6 @@ use App\Libraries\UserBuilder\Repository\ProfileRepository;
 use App\Libraries\UserBuilder\Repository\UserRepository;
 use App\Models\User;
 use App\Models\Profile;
-use Illuminate\Support\Facades\Hash;
 
 class UserService
 {

@@ -38,7 +38,6 @@ const TesterForm = ({ register, errors }) => {
           id="raporting_systems"
           type="string"
           className="form-control"
-          name="raporting_systems"
           {...register("raporting_systems", {
             required: true,
             minLength: 3,
