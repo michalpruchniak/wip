@@ -21,31 +21,23 @@ const Register = () => {
   const jobSelection = watch("job", "1");
 
   const [success, setSuccess] = useState(false);
+  const [errorsRegister, setErrorsRegister] = useState(false);
 
   const onSubmit = async (value) => {
     axios
       .post("/register", value)
       .then(() => {
-        alert("Udało się");
+        setErrorsRegister(false);
+        setSuccess(true);
+        reset();
       })
-      .catch((err) => {
-        alert("Wystąpił błąd");
-        console.log(err);
+      .catch(() => {
+        setErrorsRegister(true);
       });
   };
 
   const handleJobChange = (event) => {
     setValue("job", parseInt(event.target.value));
-
-    reset({
-      testing_systems: null,
-      ide: null,
-      raporting_systems: null,
-      programming_languages: null,
-      mysql: null,
-      methodology: null,
-      scrum: null,
-    });
   };
 
   return (
@@ -58,9 +50,16 @@ const Register = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mt-3">
             {success === true && (
-              <div className="alert alert-success">
-                Udało Ci się utworzyć konto.
-              </div>
+              <Message type="success">
+                Twoje konto zostało utworzone, a hasło zostało wysłane na podany
+                przez Ciebie adres email.
+              </Message>
+            )}
+            {errorsRegister === true && (
+              <Message>
+                Wystąpił błąd. Prawdopodobnie email, którego użyłeś jest już
+                używany.
+              </Message>
             )}
           </div>
           <div className="form-group mt-3">
