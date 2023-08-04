@@ -38,7 +38,6 @@ const Register = () => {
 
   const handleJobChange = (event) => {
     setValue("job", event.target.value);
-    console.log(jobSelection);
   };
   return (
     <>
@@ -129,6 +128,7 @@ const Register = () => {
               id="description"
               className="form-control"
               rows={5}
+              {...register("description")}
             ></textarea>
           </div>
 

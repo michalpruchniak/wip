@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Libraries\UserBuilder\UserBuilder;
+use App\Mail\Register;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Str;
 
@@ -40,6 +42,8 @@ class AuthController extends Controller
             $data['password'] = Str::random(10);
             $user->setElements($data);
             $user->build();
+
+            Mail::to($data['email'])->send(new Register($data));
 
             return json_encode(['success' => true]);
         } catch (Exception $e) {
