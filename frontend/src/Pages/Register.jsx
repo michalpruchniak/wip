@@ -16,7 +16,7 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const [job, setJob] = useState("1");
+  const [jobSelection, setJobSelection] = useState("1");
   const [success, setSuccess] = useState(false);
 
   const onSubmit = async (value) => {
@@ -34,7 +34,7 @@ const Register = () => {
       scrum: null,
     });
 
-    setJob(event.target.value);
+    setJobSelection(event.target.value);
   };
 
   return (
@@ -123,11 +123,11 @@ const Register = () => {
           </div>
 
           <div className="form-group mt-3">
-            <label htmlFor="job">Stanowisko</label>
+            <label htmlFor="jobSelection">Stanowisko</label>
             <div>
               <select
-                id="job"
-                value={job}
+                id="jobSelection"
+                value={jobSelection}
                 onChange={handleJobChange}
                 className="form-control"
               >
@@ -136,13 +136,19 @@ const Register = () => {
                 <option value="3">Project manager</option>
               </select>
             </div>
-            {errors.job?.type === "required" && (
+            {errors.jobSelection?.type === "required" && (
               <Message>Stanowisko jest wymagane.</Message>
             )}
           </div>
-          {job === "1" && <TesterForm register={register} errors={errors} />}
-          {job === "2" && <DeveloperForm register={register} errors={errors} />}
-          {job === "3" && <PMForm register={register} errors={errors} />}
+          {jobSelection === "1" && (
+            <TesterForm register={register} errors={errors} />
+          )}
+          {jobSelection === "2" && (
+            <DeveloperForm register={register} errors={errors} />
+          )}
+          {jobSelection === "3" && (
+            <PMForm register={register} errors={errors} />
+          )}
           <div className="form-group mt-3">
             <button className="btn btn-primary" type="submit">
               Zarejestruj

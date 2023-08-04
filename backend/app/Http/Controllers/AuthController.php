@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Libraries\UserBuilder\UserBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,7 @@ class AuthController extends Controller
         ])->withCookie($cookie);
     }
 
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
         $user = new UserBuilder();
         $data = $request->all();
