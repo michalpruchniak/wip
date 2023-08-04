@@ -78,7 +78,7 @@ class AuthTest extends TestCase
     public function test_validation_until_register_user()
     {
         $response = $this->postJson('/api/register', [
-            'job' => 5
+            'job' => 1
         ]);
 
         $response->assertInvalid([
