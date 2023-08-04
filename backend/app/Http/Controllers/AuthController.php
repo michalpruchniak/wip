@@ -47,7 +47,7 @@ class AuthController extends Controller
 
             return json_encode(['success' => true]);
         } catch (Exception $e) {
-            return json_encode(['success' => false]);
+            \abort(403);
         }
     }
 
