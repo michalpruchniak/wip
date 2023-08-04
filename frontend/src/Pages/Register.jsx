@@ -11,19 +11,32 @@ import Message from "../Components/Message";
 const Register = () => {
   const {
     reset,
+    watch,
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
-  const [jobSelection, setJobSelection] = useState("1");
+  const jobSelection = watch("job", "1");
+
   const [success, setSuccess] = useState(false);
 
   const onSubmit = async (value) => {
-    console.log(value);
+    axios
+      .post("/register", value)
+      .then(() => {
+        alert("Udało się");
+      })
+      .catch((err) => {
+        alert("Wystąpił błąd");
+        console.log(err);
+      });
   };
 
   const handleJobChange = (event) => {
+    setValue("job", parseInt(event.target.value));
+
     reset({
       testing_systems: null,
       ide: null,
@@ -33,8 +46,6 @@ const Register = () => {
       methodology: null,
       scrum: null,
     });
-
-    setJobSelection(event.target.value);
   };
 
   return (
@@ -127,9 +138,9 @@ const Register = () => {
             <div>
               <select
                 id="jobSelection"
-                value={jobSelection}
-                onChange={handleJobChange}
                 className="form-control"
+                {...register("job", { required: true })}
+                onChange={handleJobChange}
               >
                 <option value="1">Tester</option>
                 <option value="2">Developer</option>

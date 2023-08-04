@@ -28,15 +28,15 @@ class RegisterRequest extends FormRequest
             'description' => 'nullable',
             'job' => 'required|integer|between:1,3',
 
-            'testing_systems' => 'required_if:job,1|string|between:3,100',
-            'raporting_systems' => 'required_if:job,1,3|string|between:3,100',
+            'testing_systems' => 'required_if:job,1|string|between:3,100|nullable',
+            'raporting_systems' => 'required_if:job,1,3|string|between:3,100|nullable',
             'selenium' => 'nullable|boolean',
 
-            'ide' => 'required_if:job,2|string|between:3,100',
-            'programming_languages' => 'required_if:job,2|string|between:3,100',
+            'ide' => 'required_if:job,2|string|between:3,100|nullable',
+            'programming_languages' => 'required_if:job,2|string|between:3,100|nullable',
             'mysql' => 'nullable|boolean',
 
-            'methodology' => 'required_if:job,3|string|between:3,100',
+            'methodology' => 'required_if:job,3|string|between:3,100|nullable',
             'scrum' => 'nullable|boolean',
 
         ];
