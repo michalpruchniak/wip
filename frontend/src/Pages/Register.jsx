@@ -37,9 +37,9 @@ const Register = () => {
   };
 
   const handleJobChange = (event) => {
-    setValue("job", parseInt(event.target.value));
+    setValue("job", event.target.value);
+    console.log(jobSelection);
   };
-
   return (
     <>
       <Helmet>
@@ -151,13 +151,17 @@ const Register = () => {
             )}
           </div>
           {jobSelection === "1" && (
-            <TesterForm register={register} errors={errors} />
+            <TesterForm key="tester" register={register} errors={errors} />
           )}
           {jobSelection === "2" && (
-            <DeveloperForm register={register} errors={errors} />
+            <DeveloperForm
+              key="developer"
+              register={register}
+              errors={errors}
+            />
           )}
           {jobSelection === "3" && (
-            <PMForm register={register} errors={errors} />
+            <PMForm key="pm" register={register} errors={errors} />
           )}
           <div className="form-group mt-3">
             <button className="btn btn-primary" type="submit">
