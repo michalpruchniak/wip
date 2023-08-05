@@ -18,6 +18,7 @@ const UserTableRow = ({ user, key, deleted }) => {
         deleted(false);
       });
   };
+
   const AskRemove = () => {
     return (
       <tr>
@@ -30,12 +31,12 @@ const UserTableRow = ({ user, key, deleted }) => {
             role="group"
             aria-label="Basic example"
           >
-            <a className="btn btn-danger" onClick={() => delUser(user.id)}>
+            <button className="btn btn-danger" onClick={() => delUser(user.id)}>
               Usuń
-            </a>
-            <a className="btn btn-primary" onClick={() => setAsk(false)}>
+            </button>
+            <button className="btn btn-primary" onClick={() => setAsk(false)}>
               Anuluj
-            </a>
+            </button>
           </div>
         </td>
       </tr>
