@@ -26,4 +26,5 @@ Route::post('register', [AuthController::class, 'register']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('admin', [AdminController::class, 'allUsers']);
+    Route::delete('delete/{id}', [AdminController::class, 'delete']);
 });
