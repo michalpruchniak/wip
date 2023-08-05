@@ -3,6 +3,13 @@ import { Link } from "react-router-dom";
 import LoginStore from "../../../Config/LoginStore";
 
 const Logged = () => {
+  const logout = () => {
+    LoginStore.logout();
+
+    window.history.pushState(null, "", "/login");
+    window.location.reload();
+  };
+
   return (
     <>
       <li className="nav-item">
@@ -19,7 +26,7 @@ const Logged = () => {
       )}
 
       <li className="nav-item">
-        <Link className="nav-link" onClick={() => LoginStore.logout()}>
+        <Link className="nav-link" onClick={logout}>
           Wyloguj
         </Link>
       </li>

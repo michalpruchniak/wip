@@ -15,7 +15,7 @@ class Login {
     this.user = user;
   }
 
-  logout(id) {
+  logout() {
     this.user = {};
   }
 }
