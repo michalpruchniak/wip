@@ -1,9 +1,15 @@
+import { useState } from "react";
 import Message from "../../../Components/Message";
 import UserTableRow from "./_userTableRow";
 
 const UserTable = ({ users }) => {
+  const [allUsers, setAllUsers] = useState(users);
+
+  const deleted = (id) => {
+    alert(id);
+  };
   const userList = users.map((user, index) => (
-    <UserTableRow user={user} key={index} />
+    <UserTableRow deleted={deleted} user={user} key={index} />
   ));
 
   return users.length > 0 ? (

@@ -1,4 +1,12 @@
-const UserTableRow = ({ user, key }) => {
+import axios from "axios";
+
+const UserTableRow = ({ user, key, deleted }) => {
+  const delUser = (id) => {
+    axios.delete("/delete/" + id).then(() => {
+      deleted(id);
+    });
+  };
+
   return (
     <tr key={key}>
       <td>{user.profile.name}</td>
@@ -8,10 +16,10 @@ const UserTableRow = ({ user, key }) => {
       <td>{user.is_admin === 1 ? "Tak" : "Nie"}</td>
       <td>
         <i
-          class="fa-solid fa-pen-to-square"
+          className="fa-solid fa-pen-to-square"
           style={{ marginRight: "10px" }}
         ></i>
-        <i class="fa-solid fa-trash"></i>
+        <i className="fa-solid fa-trash" onClick={() => delUser(user.id)}></i>
       </td>
     </tr>
   );
