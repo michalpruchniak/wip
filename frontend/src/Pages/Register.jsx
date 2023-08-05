@@ -3,9 +3,9 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useState } from "react";
 import Layout from "../Layout/Layout";
-import TesterForm from "./_partials/_testerForm";
-import DeveloperForm from "./_partials/_developerForm";
-import PMForm from "./_partials/_pmForm";
+import TesterForm from "./_partials/_additionalForms/_testerForm";
+import DeveloperForm from "./_partials/_additionalForms/_developerForm";
+import PMForm from "./_partials/_additionalForms/_pmForm";
 import Message from "../Components/Message";
 
 const Register = () => {
