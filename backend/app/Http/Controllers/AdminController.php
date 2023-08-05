@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Libraries\UserBuilder\UserBuilder;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -30,7 +31,6 @@ class AdminController extends Controller
     public function delete($id)
     {
         $user = User::findOrFail($id);
-
         try {
 
             if (Auth::user()->id === $user->id) {
@@ -42,6 +42,25 @@ class AdminController extends Controller
             }
         } catch (Exception $e) {
             return response('You can\'t remove this user', 500);
+        }
+    }
+
+    public function user($id)
+    {
+        $user = User::findOrFail($id);
+        return $user;
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $user = new UserBuilder();
+            $user->setElements($request->all());
+            $user->update($id);
+
+            return json_encode(['success' => true]);
+        } catch (Exception $e) {
+            \abort(403);
         }
     }
 }

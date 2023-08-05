@@ -10,4 +10,9 @@ class UserRepository
     {
         return $user->save();
     }
+
+    public function update(User $user, array $data): bool
+    {
+        return $user->update($data);
+    }
 }

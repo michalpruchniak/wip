@@ -31,6 +31,14 @@ class UserBuilder
         return $success;
     }
 
+    public function update(int $userId): bool
+    {
+        $userService = new UserService();
+        $success = $userService->update($userId, $this->getUserData(), $this->getProfileData());
+
+        return $success;
+    }
+
     private function getUserData(): array
     {
         return $this->user;

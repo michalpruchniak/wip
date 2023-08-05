@@ -10,4 +10,9 @@ class ProfileRepository
     {
         return $profile->save();
     }
+
+    public function update(Profile $profile, array $data): bool
+    {
+        return $profile->update($data);
+    }
 }
