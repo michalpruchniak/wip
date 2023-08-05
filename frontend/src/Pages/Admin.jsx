@@ -3,20 +3,30 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Layout from "../Layout/Layout";
 import Message from "../Components/Message";
-import { BarLoader, BeatLoader, PulseLoader } from "react-spinners";
+import { PulseLoader } from "react-spinners";
 
 const Admin = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [admin, setAdmin] = useState(false);
 
   useEffect(() => {
-    axios.get("/admin").then((e) => {
-      setUsers(e.data);
+    axios
+      .get("/admin")
+      .then((e) => {
+        setUsers(e.data);
 
-      setTimeout(() => {
-        setLoading(false);
-      }, 800);
-    });
+        setTimeout(() => {
+          setLoading(false);
+          setAdmin(true);
+        }, 800);
+      })
+      .catch(() => {
+        setTimeout(() => {
+          setLoading(false);
+          setAdmin(false);
+        });
+      });
   }, []);
 
   const userList = users.map((user, index) => (
@@ -38,23 +48,35 @@ const Admin = () => {
 
   const UserTable = () => {
     return users.length > 0 ? (
-      <div className="table-responsive">
-        <table className="table">
-          <thead>
-            <tr className="bg-info">
-              <th>Imię</th>
-              <th>Nazwiko</th>
-              <th>Email</th>
-              <th>Pozycja</th>
-              <th>Czy admin</th>
-              <th>Edycja</th>
-            </tr>
-          </thead>
-          <tbody>{userList}</tbody>
-        </table>
-      </div>
+      <>
+        <h1 className="text-center">Zarządzaj użytkownikami</h1>
+
+        <div className="table-responsive">
+          <table className="table">
+            <thead>
+              <tr className="bg-info">
+                <th>Imię</th>
+                <th>Nazwiko</th>
+                <th>Email</th>
+                <th>Pozycja</th>
+                <th>Czy admin</th>
+                <th>Edycja</th>
+              </tr>
+            </thead>
+            <tbody>{userList}</tbody>
+          </table>
+        </div>
+      </>
     ) : (
       <Message>Brak elementów do wyświetlenia</Message>
+    );
+  };
+
+  const AdminCotent = () => {
+    return !admin ? (
+      <Message>Nie masz uprawnień do przeglądania tej strony.</Message>
+    ) : (
+      <UserTable />
     );
   };
 
@@ -64,13 +86,12 @@ const Admin = () => {
         <title>Zarządzaj użytkownikami</title>
       </Helmet>
       <Layout>
-        <h1 className="text-center">Zarządzaj użytkownikami</h1>
         {loading ? (
           <div className="loader-container">
             <PulseLoader color="#0DCAF0" />
           </div>
         ) : (
-          <UserTable />
+          <AdminCotent />
         )}
       </Layout>
     </>
