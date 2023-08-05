@@ -1,17 +1,21 @@
 import { Helmet } from "react-helmet";
-import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Layout from "../Layout/Layout";
 import Message from "../Components/Message";
+import { BarLoader, BeatLoader, PulseLoader } from "react-spinners";
 
 const Admin = () => {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios.get("/admin").then((e) => {
       setUsers(e.data);
-      console.log(e.data[0].profile);
+
+      setTimeout(() => {
+        setLoading(false);
+      }, 800);
     });
   }, []);
 
@@ -32,6 +36,28 @@ const Admin = () => {
     </tr>
   ));
 
+  const UserTable = () => {
+    return users.length > 0 ? (
+      <div className="table-responsive">
+        <table className="table">
+          <thead>
+            <tr className="bg-info">
+              <th>Imię</th>
+              <th>Nazwiko</th>
+              <th>Email</th>
+              <th>Pozycja</th>
+              <th>Czy admin</th>
+              <th>Edycja</th>
+            </tr>
+          </thead>
+          <tbody>{userList}</tbody>
+        </table>
+      </div>
+    ) : (
+      <Message>Brak elementów do wyświetlenia</Message>
+    );
+  };
+
   return (
     <>
       <Helmet>
@@ -39,24 +65,12 @@ const Admin = () => {
       </Helmet>
       <Layout>
         <h1 className="text-center">Zarządzaj użytkownikami</h1>
-        {users.length > 0 ? (
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr className="bg-info">
-                  <th>Imię</th>
-                  <th>Nazwiko</th>
-                  <th>Email</th>
-                  <th>Pozycja</th>
-                  <th>Czy admin</th>
-                  <th>Edycja</th>
-                </tr>
-              </thead>
-              <tbody>{userList}</tbody>
-            </table>
+        {loading ? (
+          <div className="loader-container">
+            <PulseLoader color="#0DCAF0" />
           </div>
         ) : (
-          <Message>Brak elementów do wyświetlenia</Message>
+          <UserTable />
         )}
       </Layout>
     </>

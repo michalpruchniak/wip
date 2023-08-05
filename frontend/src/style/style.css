@@ -32,3 +32,8 @@ h3 {
   margin-top: auto;
   padding: 1.1rem 0;
 }
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+}
