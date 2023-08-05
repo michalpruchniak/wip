@@ -1,6 +1,6 @@
 import { observable, action, makeObservable } from "mobx";
 
-class UsersStore {
+class Users {
   users = observable.array([]);
 
   constructor() {
@@ -20,5 +20,5 @@ class UsersStore {
   }
 }
 
-const store = new UsersStore();
-export default store;
+const UsersStore = new Users();
+export default UsersStore;

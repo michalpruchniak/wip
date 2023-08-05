@@ -4,6 +4,8 @@ import axios from "axios";
 import { useState } from "react";
 import Layout from "../Layout/Layout";
 import Message from "../Components/Message";
+import LoginStore from "../Config/LoginStore";
+import { observer } from "mobx-react-lite";
 
 const Login = () => {
   const {
@@ -23,9 +25,10 @@ const Login = () => {
         email: value.email,
         password: value.password,
       })
-      .then(() => {
+      .then((data) => {
         setLogin(true);
         setWrongCreditionals(false);
+        LoginStore.storeUser(data.data.user);
       })
       .catch(() => {
         setWrongCreditionals(true);
@@ -106,4 +109,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default observer(Login);

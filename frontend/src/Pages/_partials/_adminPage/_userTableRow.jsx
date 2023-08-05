@@ -1,7 +1,8 @@
 import axios from "axios";
-import UsersStore from "../../../Config/UsersStore";
+import UsersStore from "../../../Config/Userstore";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
+
 const UserTableRow = ({ user, key, deleted }) => {
   const [ask, setAsk] = useState(false);
 

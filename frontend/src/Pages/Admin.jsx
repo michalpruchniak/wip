@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Layout from "../Layout/Layout";
 import { PulseLoader } from "react-spinners";
 import AdminCotent from "./_partials/_adminPage/_adminContent";
-import UsersStore from "../Config/UsersStore";
+import UsersStore from "../Config/Userstore";
 
 const Admin = () => {
   const [users, setUsers] = useState([]);

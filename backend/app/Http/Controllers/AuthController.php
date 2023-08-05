@@ -7,6 +7,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Libraries\UserBuilder\UserBuilder;
 use App\Mail\Register;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,8 @@ class AuthController extends Controller
         $cookie = cookie('jwt', $token, 60 * 48);
 
         return \response([
-            'jwt' => $token
+            'jwt' => $token,
+            'user' => User::with('profile')->findOrFail($user->id)
         ])->withCookie($cookie);
     }
 

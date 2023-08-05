@@ -1,4 +1,8 @@
-import { Link } from "react-router-dom";
+import { observer } from "mobx-react-lite";
+import LoginStore from "../../Config/LoginStore";
+import Guest from "./_usersAndGuestMenu/_guest";
+import Logged from "./_usersAndGuestMenu/_logged";
+
 const Nav = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-light">
@@ -9,24 +13,12 @@ const Nav = () => {
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarText"
-          aria-controls="navbarText"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarText">
           <ul className="navbar-nav me-auto offset-9">
-            <li className="nav-item">
-              <Link to="/" className="nav-link">
-                Rejestracja
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/login" className="nav-link">
-                Logowanie
-              </Link>
-            </li>
+            {LoginStore.user?.id ? <Logged /> : <Guest />}
           </ul>
         </div>
       </div>
@@ -34,4 +26,4 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+export default observer(Nav);
