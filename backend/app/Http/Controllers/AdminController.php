@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Profile;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -30,13 +29,19 @@ class AdminController extends Controller
 
     public function delete($id)
     {
+        $user = User::findOrFail($id);
+
         try {
-            $user = User::findOrFail($id);
-            $user->profile()->delete();
-            $user->delete();
-            return json_encode(['status' => 'success']);
+
+            if (Auth::user()->id === $user->id) {
+                abort(500);
+            } else {
+                $user->profile()->delete();
+                $user->delete();
+                return json_encode(['status' => Auth::user()->id . ' ' . $id]);
+            }
         } catch (Exception $e) {
-            return response('Błąð', 404);
+            return response('You can\'t remove this user', 500);
         }
     }
 }

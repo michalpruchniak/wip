@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Layout from "../Layout/Layout";
 import { PulseLoader } from "react-spinners";
 import AdminCotent from "./_partials/_adminPage/_adminContent";
+import UsersStore from "../Config/UsersStore";
 
 const Admin = () => {
   const [users, setUsers] = useState([]);
@@ -14,6 +15,7 @@ const Admin = () => {
     axios
       .get("/admin")
       .then((e) => {
+        UsersStore.storeUsers(e.data);
         setUsers(e.data);
 
         setTimeout(() => {
@@ -40,7 +42,7 @@ const Admin = () => {
             <PulseLoader color="#0DCAF0" />
           </div>
         ) : (
-          <AdminCotent admin={admin} users={users} />
+          <AdminCotent admin={admin} users={UsersStore.users} />
         )}
       </Layout>
     </>

@@ -1,10 +1,17 @@
 import axios from "axios";
-
+import UsersStore from "../../../Config/UsersStore";
+import { observer } from "mobx-react-lite";
 const UserTableRow = ({ user, key, deleted }) => {
   const delUser = (id) => {
-    axios.delete("/delete/" + id).then(() => {
-      deleted(id);
-    });
+    axios
+      .delete("/delete/" + id)
+      .then(() => {
+        UsersStore.delUser(id);
+        deleted(true);
+      })
+      .catch(() => {
+        deleted(false);
+      });
   };
 
   return (
@@ -25,4 +32,4 @@ const UserTableRow = ({ user, key, deleted }) => {
   );
 };
 
-export default UserTableRow;
+export default observer(UserTableRow);
