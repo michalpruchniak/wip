@@ -28,14 +28,14 @@ class AuthTest extends TestCase
     public function test_loggedin_user_has_access_to_admin_area()
     {
         $this->logged_in_user('password');
-        $response = $this->get('/api/users');
+        $response = $this->get('/api/admin');
         $response->assertOk();
     }
 
     public function test_unlogged_user_doesnt_have_access_to_admin_area()
     {
         $this->logged_in_user('test');
-        $response = $this->get('/api/users');
+        $response = $this->get('/api/admin');
         $response->assertStatus(401);
     }
 
@@ -65,9 +65,11 @@ class AuthTest extends TestCase
             'email' => fake()->unique()->safeEmail(),
             'name' => fake()->name,
             'lastname' => fake()->lastname,
-            'job' => 1,
+            'job' => "1",
             'testing_systems' => 'Lorem ipsum',
             'raporting_systems' => 'Lorem ipsum',
+            'selenium' => false,
+            'description' => 'Lorem ipsum'
         ]);
 
         $response->assertJson([
@@ -94,7 +96,7 @@ class AuthTest extends TestCase
 
     private function logged_in_user($password = '', $email = '')
     {
-        $user = User::factory()->create();
+        $user = User::factory()->withProfile()->create();
         $response = $this->postJson('/api/login', [
             'email' => $email === '' ? $user->email : $email,
             'password' => $password

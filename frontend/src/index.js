@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import axios from "axios";
+import Admin from "./Pages/Admin";
 
 axios.defaults.baseURL = "http://localhost/api/";
 axios.defaults.withCredentials = true;
@@ -17,6 +18,7 @@ root.render(
       <Routes>
         <Route path="/" exact element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
