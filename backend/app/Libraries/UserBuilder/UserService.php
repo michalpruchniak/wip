@@ -14,13 +14,12 @@ class UserService
         $profileRepository = new ProfileRepository();
         $userRepository = new UserRepository();
 
-        $profile = new Profile($profileData);
-        if (!$profileRepository->save($profile)) {
+        $user = new User($userData);
+        if (!$userRepository->save($user)) {
             return false;
         }
 
-        $userData['profile_id'] = $profile->id;
-
-        return $userRepository->save(new User($userData));
+        $profileData['user_id'] = $user->id;
+        return $profileRepository->save(new Profile($profileData));
     }
 }
