@@ -21,6 +21,7 @@ root.render(
         <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/edit/:id" element={<Edit />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
