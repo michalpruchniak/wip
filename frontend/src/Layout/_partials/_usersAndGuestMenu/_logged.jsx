@@ -9,8 +9,8 @@ const Logged = () => {
     axios
       .get("/logout")
       .then(() => {
-        // window.history.pushState(null, "", "/login");
-        // window.location.reload();
+        window.history.pushState(null, "", "/login");
+        window.location.reload();
       })
       .catch(() => {
         console.log("Some errors");
