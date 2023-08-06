@@ -17,6 +17,7 @@ const Register = () => {
               przez Ciebie adres email."
           errorMessage="Wystąpił błąd. Prawdopodobnie email, którego użyłeś jest już
           używany."
+          requestMethod="post"
           buttonText="Zarejestruj"
         />
       </Layout>

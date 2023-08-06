@@ -5,7 +5,7 @@ import TesterForm from "../_additionalForms/_testerForm";
 import DeveloperForm from "../_additionalForms/_developerForm";
 import PMForm from "../_additionalForms/_pmForm";
 import axios from "axios";
-import { useInitialUser } from "../_updateForm/_hooks/_useInitialUser";
+import { useInitialUser } from "../_registerForm/_hooks/_useInitialUser";
 
 const RegisterForm = ({
   url,
@@ -15,6 +15,8 @@ const RegisterForm = ({
   successMessage,
   errorMessage,
   buttonText,
+  requestMethod,
+  userDoesntExist,
 }) => {
   const {
     reset,
@@ -36,8 +38,7 @@ const RegisterForm = ({
   const [errorsRegister, setErrorsRegister] = useState(false);
 
   const onSubmit = async (value) => {
-    axios
-      .post(`/${url}`, value)
+    axios[requestMethod](`/${url}`, value)
       .then(() => {
         setErrorsRegister(false);
         setSuccess(true);
@@ -55,7 +56,6 @@ const RegisterForm = ({
   return (
     <>
       <h1 className="text-center">{header}</h1>
-
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mt-3">
           {success === true && (
