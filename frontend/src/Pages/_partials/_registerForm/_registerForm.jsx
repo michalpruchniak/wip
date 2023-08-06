@@ -5,6 +5,7 @@ import TesterForm from "../_additionalForms/_testerForm";
 import DeveloperForm from "../_additionalForms/_developerForm";
 import PMForm from "../_additionalForms/_pmForm";
 import axios from "axios";
+import { useInitialUser } from "../_updateForm/_hooks/_useInitialUser";
 
 const RegisterForm = ({
   url,
@@ -24,22 +25,10 @@ const RegisterForm = ({
     formState: { errors },
   } = useForm();
 
+  const initialUser = useInitialUser(reset);
+
   useEffect(() => {
-    if (user) {
-      setValue("name", user.profile?.name);
-      setValue("lastname", user.profile?.lastname);
-      setValue("email", user.profile?.email);
-      setValue("description", user.profile?.description);
-      setValue("job", String(user.profile?.job));
-      setValue("testing_systems", user.profile?.testing_systems);
-      setValue("raporting_systems", user.profile?.raporting_systems);
-      setValue("selenium", user.profile?.selenium);
-      setValue("ide", user.profile?.ide);
-      setValue("programming_languages", user.profile?.programming_languages);
-      setValue("mysql", user.profile?.mysql);
-      setValue("methodology", user.profile?.methodology);
-      setValue("scrum", user.profile?.scrum);
-    }
+    initialUser(user);
   }, [user]);
 
   const jobSelection = watch("job", "1");

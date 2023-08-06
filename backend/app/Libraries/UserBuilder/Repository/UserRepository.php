@@ -24,7 +24,7 @@ class UserRepository
           ten w Profile jest służy do wyświetlania, np. a panelu admina. Mógłby później być wykorzystywany do wysyłania maili, itp.
 
           Zostawiam jednak tę metodę, ponieważ przy póxniejszej rozbudowie strony mogłaby być przydatna, np. można byłoby do komponentu Edit.jsx dodać dodatkowego checkbox'a
-          który służyłby do nadawania, bądź odbierania uprawnień admina. Dodatkowo chciałem, żeby Profile i User miały te same interfejsy.
+          który służyłby do nadawania, bądź odbierania uprawnień admina.
         */
 
         return true;
