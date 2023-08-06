@@ -2,6 +2,7 @@ import axios from "axios";
 import UsersStore from "../../../Config/Userstore";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const UserTableRow = ({ user, key, deleted }) => {
   const [ask, setAsk] = useState(false);
@@ -51,10 +52,12 @@ const UserTableRow = ({ user, key, deleted }) => {
         <td>{user.profile.job}</td>
         <td>{user.is_admin === 1 ? "Tak" : "Nie"}</td>
         <td>
-          <i
-            className="fa-solid fa-pen-to-square"
-            style={{ marginRight: "10px" }}
-          ></i>
+          <Link to={`/edit/${user.id}`}>
+            <i
+              className="fa-solid fa-pen-to-square"
+              style={{ marginRight: "10px" }}
+            ></i>
+          </Link>
           <i className="fa-solid fa-trash" onClick={() => setAsk(!ask)}></i>
         </td>
       </tr>
