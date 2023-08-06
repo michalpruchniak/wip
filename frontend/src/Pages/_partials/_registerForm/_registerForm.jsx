@@ -30,7 +30,7 @@ const RegisterForm = ({
 
   useEffect(() => {
     initialUser(user);
-  }, [user, initialUser]);
+  }, [user]);
 
   const jobSelection = watch("job", "1");
   const [success, setSuccess] = useState(false);
