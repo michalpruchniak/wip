@@ -9,11 +9,19 @@ use App\Models\Profile;
 
 class UserService
 {
+    private $profileRepository;
+    private $userRepository;
+
+    public function __construct()
+    {
+        $this->profileRepository = new ProfileRepository();
+        $this->userRepository = new UserRepository();
+    }
+
     public function create(array $userData, array $profileData): bool
     {
         $profileRepository = new ProfileRepository();
         $userRepository = new UserRepository();
-
         $user = new User($userData);
         if (!$userRepository->save($user)) {
             return false;
@@ -25,25 +33,23 @@ class UserService
 
     public function update(int $userId, array $userData, array $profileData): bool
     {
-        $userRepository = new UserRepository();
-        $profileRepository = new ProfileRepository();
 
-        $user = User::find($userId);
-        if (!$user) {
-            return false; // Użytkownik nie istnieje
-        }
 
-        if (!$userRepository->update($user, $userData)) {
-            return false; // Błąd aktualizacji użytkownika
+        $user = User::findOrFail($userId);
+
+        /*
+            Na chwilę obecną nie zakładam edytowania samegomodelu User. Zostawiam ten fragment kodu
+            bardzoej informacyjnie.
+        */
+
+        if (!$this->userRepository->update($user, $userData)) {
+            return false;
         }
 
         $profile = $user->profile;
-        if (!$profile) {
-            return false; // Profil nie istnieje
-        }
 
-        if (!$profileRepository->update($profile, $profileData)) {
-            return false; // Błąd aktualizacji profilu
+        if (!$this->profileRepository->update($profile, $profileData)) {
+            return false;
         }
 
         return true;
