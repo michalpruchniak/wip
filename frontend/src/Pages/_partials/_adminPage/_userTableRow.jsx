@@ -2,7 +2,10 @@ import axios from "axios";
 import UsersStore from "../../../Config/Userstore";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
+import TesterSkills from "./_skills/_testerSkills";
+import DeveloperSkills from "./_skills/_developerSkills";
+import PMSkills from "./_skills/_pmSkills";
 
 const UserTableRow = ({ user, key, deleted }) => {
   const [ask, setAsk] = useState(false);
@@ -43,9 +46,10 @@ const UserTableRow = ({ user, key, deleted }) => {
       </tr>
     );
   };
+
   return (
     <>
-      <tr key={key}>
+      <tr key={key} className="singleUser">
         <td>{user.profile.name}</td>
         <td>{user.profile.lastname}</td>
         <td>{user.profile.email}</td>
@@ -61,6 +65,14 @@ const UserTableRow = ({ user, key, deleted }) => {
           <i className="fa-solid fa-trash" onClick={() => setAsk(!ask)}></i>
         </td>
       </tr>
+      <tr key={`additional-${key}`}>
+        <td colSpan={6} className="text-center">
+          <b>Umiejętności</b>
+        </td>
+      </tr>
+      {user.profile.job === 1 && <TesterSkills user={user} key={key} />}
+      {user.profile.job === 2 && <DeveloperSkills user={user} key={key} />}
+      {user.profile.job === 3 && <PMSkills user={user} key={key} />}
       {ask && <AskRemove />}
     </>
   );
