@@ -2,7 +2,9 @@ const TesterForm = ({ register, errors }) => {
   return (
     <>
       <div className="form-group mt-3">
-        <label htmlFor="testing_systems">Systemy testujące</label>
+        <label htmlFor="testing_systems">
+          Systemy testujące <span class="text-danger">*</span>
+        </label>
         <input
           id="testing_systems"
           type="string"
@@ -32,7 +34,9 @@ const TesterForm = ({ register, errors }) => {
       </div>
 
       <div className="form-group mt-3">
-        <label htmlFor="raporting_systems">Systemy raportowe</label>
+        <label htmlFor="raporting_systems">
+          Systemy raportowe <span class="text-danger">*</span>
+        </label>
         <input
           id="raporting_systems"
           type="string"

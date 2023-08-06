@@ -2,7 +2,9 @@ const PMForm = ({ register, errors }) => {
   return (
     <>
       <div className="form-group mt-3">
-        <label htmlFor="methodology">Metodologie prowadzenia projektów</label>
+        <label htmlFor="methodology">
+          Metodologie prowadzenia projektów<span class="text-danger">*</span>
+        </label>
         <input
           id="methodology"
           type="string"
@@ -34,7 +36,9 @@ const PMForm = ({ register, errors }) => {
       </div>
 
       <div className="form-group mt-3">
-        <label htmlFor="raporting_systems">Systemy raportowe</label>
+        <label htmlFor="raporting_systems">
+          Systemy raportowe <span class="text-danger">*</span>
+        </label>
         <input
           id="raporting_systems"
           type="string"

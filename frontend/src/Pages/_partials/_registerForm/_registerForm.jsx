@@ -63,7 +63,9 @@ const RegisterForm = ({
           {errorsRegister === true && <Message>{errorMessage}</Message>}
         </div>
         <div className="form-group mt-3">
-          <label htmlFor="name">Imię</label>
+          <label htmlFor="name">
+            Imię <span class="text-danger">*</span>
+          </label>
           <input
             id="name"
             type="string"
@@ -86,7 +88,9 @@ const RegisterForm = ({
           )}
         </div>
         <div className="form-group mt-3">
-          <label htmlFor="lastname">Nazwisko</label>
+          <label htmlFor="lastname">
+            Nazwisko <span class="text-danger">*</span>
+          </label>
           <input
             id="lastname"
             type="string"
@@ -109,7 +113,9 @@ const RegisterForm = ({
           )}
         </div>
         <div className="form-group mt-3">
-          <label htmlFor="name">Adres email</label>
+          <label htmlFor="name">
+            Adres email <span class="text-danger">*</span>
+          </label>
           <input
             id="email"
             type="string"
@@ -134,7 +140,9 @@ const RegisterForm = ({
         </div>
 
         <div className="form-group mt-3">
-          <label htmlFor="jobSelection">Stanowisko</label>
+          <label htmlFor="jobSelection">
+            Stanowisko <span class="text-danger">*</span>
+          </label>
           <div>
             <select
               id="jobSelection"

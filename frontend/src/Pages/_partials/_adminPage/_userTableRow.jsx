@@ -2,7 +2,7 @@ import axios from "axios";
 import UsersStore from "../../../Config/Userstore";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import TesterSkills from "./_skills/_testerSkills";
 import DeveloperSkills from "./_skills/_developerSkills";
 import PMSkills from "./_skills/_pmSkills";
