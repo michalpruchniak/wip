@@ -19,4 +19,3 @@ Pamiętaj, że musisz mieć zainstalowany lokalnie Docker. Jeśli spróbujesz ur
 ```
 
 ![Running project](./images/running-project.jpg)
-````
