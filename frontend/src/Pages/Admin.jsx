@@ -15,17 +15,17 @@ const Admin = () => {
       .get("/admin")
       .then((e) => {
         UsersStore.storeUsers(e.data);
-
-        setTimeout(() => {
-          setLoading(false);
-          setAdmin(true);
-        }, 800);
+        setAdmin(true);
       })
       .catch(() => {
         setTimeout(() => {
-          setLoading(false);
           setAdmin(false);
         });
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       });
   }, []);
 
