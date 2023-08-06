@@ -47,7 +47,7 @@ class AdminController extends Controller
 
     public function user($id)
     {
-        $user = User::findOrFail($id);
+        $user = User::with('profile')->findOrFail($id);
         return $user;
     }
 

@@ -10,7 +10,15 @@ const Register = () => {
       </Helmet>
       <Layout>
         <h1 className="text-center">Zarejestruj się</h1>
-        <RegisterForm url="register" />
+        <RegisterForm
+          url="register"
+          resetForm={true}
+          successMessage="Twoje konto zostało utworzone, a hasło zostało wysłane na podany
+              przez Ciebie adres email."
+          errorMessage="Wystąpił błąd. Prawdopodobnie email, którego użyłeś jest już
+          używany."
+          buttonText="Zarejestruj"
+        />
       </Layout>
     </>
   );
