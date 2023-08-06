@@ -1,13 +1,20 @@
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import LoginStore from "../../../Config/LoginStore";
+import axios from "axios";
 
 const Logged = () => {
   const logout = () => {
     LoginStore.logout();
-
-    window.history.pushState(null, "", "/login");
-    window.location.reload();
+    axios
+      .get("/logout")
+      .then(() => {
+        // window.history.pushState(null, "", "/login");
+        // window.location.reload();
+      })
+      .catch(() => {
+        console.log("Some errors");
+      });
   };
 
   return (

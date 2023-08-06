@@ -11,6 +11,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Mail;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Str;
@@ -53,8 +54,27 @@ class AuthController extends Controller
         }
     }
 
+    public function user()
+    {
+        $user = User::with('profile')->findOrFail(Auth::user()->id);
+        return $user;
+    }
+
     public function users(Request $request)
     {
-        return $request->user();
+        if (Auth::check()) {
+            return $request->user();
+        } else {
+            abort(401);
+        }
+    }
+
+    public function logout()
+    {
+        $cookie = Cookie::forget('jwt');
+
+        return response([
+            'message' => 'success'
+        ])->withCookie($cookie);
     }
 }
