@@ -1,6 +1,6 @@
 ## Opis projektu
 
-Jest to pokazowy projekt, który łączy dosyć proste funkcjonalności, jak - rejestracja nowego usera, edycja, usuwanie, wysyłanie maila powitalnego z wygenerowanym hasłem, itp. Wykorzystuję Selenium (Jwt) do komunikacji pomiędzy frontendtem i backendem. Korzystam także z MobX. Jest to drugi projekt w którym korzystam z MobX. Wcześniej korzystałem z Redux'a, ale wydaje mi się, że MobX jest znacznie przyjemniejszzy w używaniu.
+Jest to pokazowy projekt, który łączy dosyć proste funkcjonalności, jak - rejestracja nowego usera, edycja, usuwanie, wysyłanie maila powitalnego z wygenerowanym hasłem, itp. Wykorzystuję Sanctum (Jwt) do komunikacji pomiędzy frontendtem i backendem. Korzystam także z MobX. Jest to drugi projekt w którym korzystam z MobX. Wcześniej korzystałem z Redux'a, ale wydaje mi się, że MobX jest znacznie przyjemniejszzy w używaniu.
 Jest to projekt testowy, więc wiele rzeczy tutaj można zmienić - nawet kilka zaznaczyłem w komentarzach. Tak samo nie pokrywałem całej aplikacji testami, a napisałem jedynie kilka, żeby pokazać, że potrafię to robić.
 
 ### Stack technologiczny
@@ -16,17 +16,34 @@ W jednym repozytorium umieściłem zarówno frontend, jak i frontend.
 
 Najpierw uruchamiamy backend. W sytuacji, kiedy mamy zainstalowany composer lokalnie, możemy to zrobić dosyć prosto
 
+1. **Instalowanie zależności**
+   Jeśli mamy Composera lokalnie, to możemy to zrobić dosyć prosto
+
 ```
 $ cd ../backend
 $ composer install
-$ ./vendor/bin/sail artisan migrate
-$ ./vendor/bin/sail artisan db:seed
-$ ./vendor/bin/sail up
 ```
 
-**Musimy wcześniej zmienić jednak nazwę pliku .env.example na .env**
+Jeśli używacie, np. wyłącznie Saila, to możecie przekopiować katalog ./vendor z czystej instalacji Laravela.
 
-Jeśli, tak jak ja nie mamy lokalnie composera, a korzystamy, np. wyłącznie z dockera, to możemy po prostu przekopiować katalog ./vendor z czystego projektu Laravela, i odplalamy go tak samo.
+2. **Konfigurowanie bazy danych**
+   Zmień nazwę plik .env.example na .env, a następnie skonfiguruj połączenia z bazą danych. Najważniejsza jest tutaj nazwa bazy danych. Można skorzystać już z istniejącej lub utworzyć nową.
+
+```
+$ DB_CONNECTION=mysql
+$ DB_HOST=mysql
+$ DB_PORT=3306
+$ DB_DATABASE=backend
+$ DB_USERNAME=sail
+$ DB_PASSWORD=password
+```
+
+Następnie należy uruchomić migrację i seed.
+
+```
+$ ./vendor/bin/sail artisan:migrate
+$ ./vendor/bin/sail db:seed
+```
 
 > Pamiętaj, że musisz mieć zainstalowany lokalnie Docker. Jeśli spróbujesz uruchomić projekt przez php artisan serv w domyślnej konfiguracji, to projekt nie będzie działał poprawnie, ponieważ framework zostanie uruchomiony na porcie 8000. W takiej sytuacji trzeba w pliku index.js zmieniać axios.default.baseURL.
 
@@ -76,5 +93,19 @@ $ npm test
 ## Funkcjonalności
 
 - **Rejestracja użytkownika** - Przy wejściu na stronę główną zobaczymy formularz rejestracji. Jest on walidowany zarówno po stronie frontendu, jak i backendu. Do obsługi formularzy użyłem react-hook-form. Po wybraniu innego stanowiska jest podmieniany formularz z dodatkowymi umiejętnościami.
-  ![Form Validation](./images/form-valdiation.jpg)
+  ![Form Validation](./images/form-validation.jpg)
 - **Uprawnienia admina** - na chwilę obecną w projekcie nie można nadawać uprawnień admina, ale domyślnie tworzony user ma przypisaną taką rolę. Można też to zmienić w bazie mysql, zmieniając is_admin na 1. Pojawia się wtedy możliwość przejścia do panelu admina.
+  ![Manage users](./images/manage-users.jpg)
+- **Wysyłanie maili** - Po utworzeniu konta automatycznie wysyłana jest wiadomość z podstawowymi informacjami, oraz hasłem do logowania, które jest generowane automatycznie. Można jest zobaczyć w MailHob. Kiedy sail jest uruchomiony. należy wejść pod adres **localhost:8025**, gdzie można zobaczyć maile jakie zostały wysłane.
+
+## Użyte biblioteki
+
+Opisuję tylko frontend, ponieważ po stronie backendu korzystałem praktycznie z czystego Laravela. Doinstalowałem jedynie Sanctum.
+
+- axios
+- react-hook-form
+- mobX
+- react-router-dom
+- react-spinners
+- helmet
+  **Pomijam biblioteki instalowane razem z Reactem, jak Jest.**

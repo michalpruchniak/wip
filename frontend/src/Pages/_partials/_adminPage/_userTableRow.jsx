@@ -53,7 +53,11 @@ const UserTableRow = ({ user, key, deleted }) => {
         <td>{user.profile.name}</td>
         <td>{user.profile.lastname}</td>
         <td>{user.profile.email}</td>
-        <td>{user.profile.job}</td>
+        <td>
+          {user.profile.job == 1 && "Tester"}
+          {user.profile.job == 2 && "Developer"}
+          {user.profile.job == 3 && "Project Manager"}
+        </td>
         <td>{user.is_admin === 1 ? "Tak" : "Nie"}</td>
         <td>
           <Link to={`/edit/${user.id}`}>
