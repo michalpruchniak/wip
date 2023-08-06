@@ -19,8 +19,12 @@ Najpierw uruchamiamy backend. W sytuacji, kiedy mamy zainstalowany composer loka
 ```
 $ cd ../backend
 $ composer install
+$ ./vendor/bin/sail artisan migrate
+$ ./vendor/bin/sail artisan db:seed
 $ ./vendor/bin/sail up
 ```
+
+**Musimy wcześniej zmienić jednak nazwę pliku .env.example na .env**
 
 Jeśli, tak jak ja nie mamy lokalnie composera, a korzystamy, np. wyłącznie z dockera, to możemy po prostu przekopiować katalog ./vendor z czystego projektu Laravela, i odplalamy go tak samo.
 
@@ -42,6 +46,13 @@ Pamiętaj, że musisz mieć jednocześnie włączony backend i frontend. Ja uruc
 
 ![Running project](./images/running-project.jpg)
 
+### Logowanie się na stronie
+
+Żeby się zalogować, należy przejść na stronę **/login** i zalogować się danymi domyślnymi
+
+> email: user@user.pl, hasło: password
+> Dane logowania są dostępne w seederze
+
 ## Testowanie
 
 Testy **nie pokrywają całej aplikacji, zostały stworzone pokazowo**, żeby pokazać, że umiem to robić. Niestety czas nie pozwolił na więcej. Testy można odpalać w następujący sposób.
@@ -61,3 +72,9 @@ Przy założeniu, że mamy zainstalowanego Dockera
 $ cd ../frontend
 $ npm test
 ```
+
+## Funkcjonalności
+
+- **Rejestracja użytkownika** - Przy wejściu na stronę główną zobaczymy formularz rejestracji. Jest on walidowany zarówno po stronie frontendu, jak i backendu. Do obsługi formularzy użyłem react-hook-form. Po wybraniu innego stanowiska jest podmieniany formularz z dodatkowymi umiejętnościami.
+  ![Form Validation](./images/form-valdiation.jpg)
+- **Uprawnienia admina** - na chwilę obecną w projekcie nie można nadawać uprawnień admina, ale domyślnie tworzony user ma przypisaną taką rolę. Można też to zmienić w bazie mysql, zmieniając is_admin na 1. Pojawia się wtedy możliwość przejścia do panelu admina.
