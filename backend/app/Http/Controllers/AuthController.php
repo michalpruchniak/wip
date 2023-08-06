@@ -60,15 +60,6 @@ class AuthController extends Controller
         return $user;
     }
 
-    public function users(Request $request)
-    {
-        if (Auth::check()) {
-            return $request->user();
-        } else {
-            abort(401);
-        }
-    }
-
     public function logout()
     {
         $cookie = Cookie::forget('jwt');

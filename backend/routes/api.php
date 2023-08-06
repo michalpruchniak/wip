@@ -23,12 +23,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
-Route::get('user', [AuthController::class, 'user']);
-Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('user', [AuthController::class, 'user']);
     Route::get('admin', [AdminController::class, 'allUsers']);
     Route::delete('delete/{id}', [AdminController::class, 'delete']);
     Route::get('user/{id}', [AdminController::class, 'user']);
     Route::put('update/{id}', [AdminController::class, 'update']);
+    Route::get('/logout', [AuthController::class, 'logout']);
 });
