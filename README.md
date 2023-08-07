@@ -10,21 +10,26 @@ Jest to projekt testowy, więc wiele rzeczy tutaj można zmienić - nawet kilka 
 
 ## Uruchamianie projektu
 
-W jednym repozytorium umieściłem zarówno frontend, jak i frontend.
+W jednym repozytorium umieściłem zarówno backend, jak i frontend.
 
 ### Backend
 
 Najpierw uruchamiamy backend. W sytuacji, kiedy mamy zainstalowany composer lokalnie, możemy to zrobić dosyć prosto
 
 1. **Instalowanie zależności**
-   Jeśli mamy Composera lokalnie, to możemy to zrobić dosyć prosto
 
 ```
 $ cd ../backend
 $ composer install
 ```
 
-Jeśli używacie, np. wyłącznie Saila, to możecie przekopiować katalog ./vendor z czystej instalacji Laravela.
+Jeśli używacie, np. wyłącznie Saila, to możecie przekopiować katalog ./vendor z czystej instalacji Laravela. Czystego Laravela możemy zainstalować, np. w taki sposób:
+
+```
+curl -s "https://laravel.build/example-app" | bash
+```
+
+Inne metody instalacji znajdują się pod adresem: https://laravel.com/docs/10.x/installation .
 
 2. **Konfigurowanie bazy danych**
    Zmień nazwę plik .env.example na .env, a następnie skonfiguruj połączenia z bazą danych. Najważniejsza jest tutaj nazwa bazy danych. Można skorzystać już z istniejącej lub utworzyć nową.
@@ -97,6 +102,7 @@ $ npm test
 - **Uprawnienia admina** - na chwilę obecną w projekcie nie można nadawać uprawnień admina, ale domyślnie tworzony user ma przypisaną taką rolę. Można też to zmienić w bazie mysql, zmieniając is_admin na 1. Pojawia się wtedy możliwość przejścia do panelu admina.
   ![Manage users](./images/manage-users.jpg)
 - **Wysyłanie maili** - Po utworzeniu konta automatycznie wysyłana jest wiadomość z podstawowymi informacjami, oraz hasłem do logowania, które jest generowane automatycznie. Można jest zobaczyć w MailHob. Kiedy sail jest uruchomiony. należy wejść pod adres **localhost:8025**, gdzie można zobaczyć maile jakie zostały wysłane.
+- **Podstrona /home** - Tę stronę dodałem dodatkowo, ponieważ chciałem, żeby po przekierowaniu, user był automatycznie przenoszony na jakąś stronę, i żeby przy próbubie wejścia zalogowanego usera podadres **/login**, był automatycznie przenoszony na tę stronę. Zostawiłem jednak bez zmian **/register**, ponieważ chciałem, żeby nawet zalogowaniu użytkownicy mogli rejestrować nowych userów.
 
 ## Użyte biblioteki
 
@@ -108,4 +114,5 @@ Opisuję tylko frontend, ponieważ po stronie backendu korzystałem praktycznie 
 - react-router-dom
 - react-spinners
 - helmet
-  **Pomijam biblioteki instalowane razem z Reactem, jak Jest.**
+
+**Pomijam biblioteki instalowane razem z Reactem, jak Jest.**
