@@ -9,7 +9,6 @@ use App\Libraries\UserBuilder\UserBuilder;
 use App\Mail\Register;
 use App\Models\User;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Mail;

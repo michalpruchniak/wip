@@ -181,9 +181,9 @@ const RegisterForm = ({
             {buttonText}
           </button>
           {goBack && (
-            <a className="btn btn-secondary" onClick={goBack}>
+            <button className="btn btn-secondary" onClick={goBack}>
               Wróć
-            </a>
+            </button>
           )}
         </div>
       </form>
