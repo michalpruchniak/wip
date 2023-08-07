@@ -19,7 +19,7 @@ Najpierw należy uruchomić backend. Można to zrobić dosyć prosto za pomocą 
 1. **Instalowanie zależności**
 
 ```
-$ cd ../backend
+$ cd backend
 $ composer install
 ```
 
@@ -32,6 +32,7 @@ curl -s "https://laravel.build/example-app" | bash
 Inne metody instalacji znajdują się pod adresem: https://laravel.com/docs/10.x/installation .
 
 2. **Konfigurowanie bazy danych**
+
    Należy zmienić nazwę pliku .env.example na .env, a następnie skonfigurować połączenie z bazą danych. Nazwa bazy danych może być wymyślona, ponieważ Laravel i tak utworzy nową.
 
 ```
@@ -51,7 +52,7 @@ $ ./vendor/bin/sail artisan:migrate
 $ ./vendor/bin/sail db:seed
 ```
 
-Może się jednak zdarzyć, że pojawi się błąd połączenia z bazą danych. Należy wtedy zatrzymać Saila (naciskając ctrl+C) i wpisując w terminalu:
+Może się jednak zdarzyć, że pojawi się błąd połączenia z bazą danych. Należy wtedy zatrzymać Saila (naciskając ctrl+C) i wpisać w terminalu:
 
 ```
 $ ./vendor/bin/sail down -v
@@ -66,7 +67,7 @@ Po czym należy jeszcze raz uruchomić sail up i przeprowadzić powyższe kroki 
 Teraz możemy uruchomić frontend
 
 ```
-$ cd ../frontend
+$ cd frontend
 $ npm install
 $ npm start
 ```
@@ -88,7 +89,7 @@ Testy **nie pokrywają całej aplikacji, zostały stworzone pokazowo**, żeby po
 ### Backend
 
 ```
-$ cd ../backend
+$ cd backend
 $ ./vendor/bin/sail artisan test
 ```
 
@@ -97,7 +98,7 @@ Przy założeniu, że mamy zainstalowanego Dockera
 ### Frontend
 
 ```
-$ cd ../frontend
+$ cd frontend
 $ npm test
 ```
 
@@ -109,7 +110,7 @@ $ npm test
   ![Manage users](./images/manage-users.jpg)
 - **Wysyłanie maili** - Po utworzeniu konta automatycznie wysyłana jest wiadomość z podstawowymi informacjami, oraz hasłem do logowania, które jest generowane automatycznie. Można je zobaczyć w MailHog. Kiedy sail jest uruchomiony. należy wejść pod adres **localhost:8025**, gdzie można zobaczyć maile jakie zostały wysłane. Produkcyjnie trzeba skonfigurować obsługę maili w .env.
   ![Form Validation](./images/example-mail.jpg)
-- **Podstrona /home** - Tę stronę dodałem dodatkowo, ponieważ chciałem, żeby po przekierowaniu, user był automatycznie przenoszony na jakąś stronę, i żeby przy próbubie wejścia zalogowanego usera podadres **/login**, był automatycznie przenoszony na tę stronę. Zostawiłem jednak bez zmian **/register**, ponieważ chciałem, żeby nawet zalogowaniu użytkownicy mogli rejestrować nowych userów.
+- **Podstrona /home** - Tę stronę dodałem dodatkowo, ponieważ chciałem, żeby po zalogowaniu, user był automatycznie przenoszony na jakąś stronę, i żeby przy próbubie wejścia zalogowanego usera pod adres **/login**, był automatycznie przenoszony na tę stronę. Zostawiłem jednak bez zmian rejestrację, ponieważ chciałem, żeby nawet zalogowani użytkownicy mogli rejestrować nowych userów, np. w sytuacji kiedy zalogowany jest admin i chce dodać nowych użytkowników. OCzywiście wszystko zależy od koncepcji. Ja uznałem, że tak będzie ok.
 
 ## Użyte biblioteki
 
