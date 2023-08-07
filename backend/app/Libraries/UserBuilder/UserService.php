@@ -20,34 +20,30 @@ class UserService
 
     public function create(array $userData, array $profileData): bool
     {
-        $profileRepository = new ProfileRepository();
-        $userRepository = new UserRepository();
         $user = new User($userData);
-        if (!$userRepository->save($user)) {
+        if (!$this->userRepository->save($user)) {
             return false;
         }
 
         $profileData['user_id'] = $user->id;
-        return $profileRepository->save(new Profile($profileData));
+        return $this->profileRepository->save(new Profile($profileData));
     }
 
     public function update(int $userId, array $userData, array $profileData): bool
     {
-
-
         $user = User::findOrFail($userId);
 
         /*
-            Na chwilę obecną nie zakładam edytowania samegomodelu User. Zostawiam ten fragment kodu
-            bardzoej informacyjnie.
+            Na chwilę obecną nie zakładam edytowania samego modelu User.
+            Więcej na ten temat pisałem w userRepository, a poniższy fragment kodu,
+            zostawiam informacyjnie.
         */
 
-        if (!$this->userRepository->update($user, $userData)) {
-            return false;
-        }
+        // if (!$this->userRepository->update($user, $userData)) {
+        //     return false;
+        // }
 
         $profile = $user->profile;
-
         if (!$this->profileRepository->update($profile, $profileData)) {
             return false;
         }

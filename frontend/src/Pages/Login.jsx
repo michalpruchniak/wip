@@ -1,11 +1,11 @@
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Layout from "../Layout/Layout";
 import Message from "../Components/Message";
 import LoginStore from "../Config/LoginStore";
-import { observer } from "mobx-react-lite";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const {
@@ -15,24 +15,27 @@ const Login = () => {
   } = useForm();
 
   const [wrongCreditionals, setWrongCreditionals] = useState(false);
-  const [login, setLogin] = useState(false);
+  const navigate = useNavigate();
 
-  const onSubmit = async (value) => {
+  useEffect(() => {
+    if (LoginStore.user?.profile) {
+      navigate("/home");
+    }
+  }, [LoginStore.user]);
+
+  const onSubmit = (value) => {
     setWrongCreditionals(false);
 
-    await axios
+    axios
       .post("/login", {
         email: value.email,
         password: value.password,
       })
       .then((data) => {
-        setLogin(true);
-        setWrongCreditionals(false);
         LoginStore.storeUser(data.data.user);
       })
       .catch(() => {
         setWrongCreditionals(true);
-        setLogin(false);
       });
   };
 
@@ -43,6 +46,7 @@ const Login = () => {
       </Helmet>
       <Layout>
         <h1 className="text-center">Zaloguj się</h1>
+
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mt-3">
             {wrongCreditionals === true && (
@@ -50,11 +54,6 @@ const Login = () => {
                 Nie udało się zalogować. Prawdopodobnie podałeś zły adres email
                 lub hasło.
               </Message>
-            )}
-            {login === true && (
-              <div className="alert alert-success">
-                Udało Ci się zalogować na konto.
-              </div>
             )}
           </div>
           <div className="mt-3">
@@ -109,4 +108,4 @@ const Login = () => {
   );
 };
 
-export default observer(Login);
+export default Login;

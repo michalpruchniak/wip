@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { PulseLoader } from "react-spinners";
 import Message from "../Components/Message";
+import { useNavigate } from "react-router-dom";
 
 const Edit = () => {
   const { id } = useParams();
@@ -13,6 +14,7 @@ const Edit = () => {
   const [user, setUser] = useState();
   const [errorGet, setErrorGet] = useState(false);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -29,6 +31,10 @@ const Edit = () => {
         }, 1000);
       });
   }, [id]);
+
+  const goBack = () => {
+    navigate("/admin");
+  };
 
   // Wiem, że dobrze byłoby też bardziej uporządkować ten Kod, ale w tym przypadku
   // jest na tyle prosty, że już go zostawię,
@@ -57,6 +63,7 @@ const Edit = () => {
             buttonText="Zaktualizuj"
             requestMethod="put"
             header={`Edytuj konto ${user?.profile.name} ${user?.profile.lastname}`}
+            goBack={goBack}
           />
         )}
       </Layout>

@@ -3,7 +3,7 @@ const TesterForm = ({ register, errors }) => {
     <>
       <div className="form-group mt-3">
         <label htmlFor="testing_systems">
-          Systemy testujące <span class="text-danger">*</span>
+          Systemy testujące <span className="text-danger">*</span>
         </label>
         <input
           id="testing_systems"
@@ -35,7 +35,7 @@ const TesterForm = ({ register, errors }) => {
 
       <div className="form-group mt-3">
         <label htmlFor="raporting_systems">
-          Systemy raportowe <span class="text-danger">*</span>
+          Systemy raportowe <span className="text-danger">*</span>
         </label>
         <input
           id="raporting_systems"

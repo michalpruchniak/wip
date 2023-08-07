@@ -27,7 +27,7 @@ class AuthTest extends TestCase
 
     public function test_loggedin_user_has_access_to_admin_area()
     {
-        $this->logged_in_user('password');
+        $this->logged_in_user('password', '', true);
         $response = $this->get('/api/admin');
         $response->assertOk();
     }
@@ -94,12 +94,15 @@ class AuthTest extends TestCase
         $response->assertValid(['job']);
     }
 
-    private function logged_in_user($password = '', $email = '')
+    private function logged_in_user($password = '', $email = '', $is_admin = false)
     {
-        $user = User::factory()->withProfile()->create();
+        $user = User::factory()->withProfile()->create([
+            'is_admin' => $is_admin,
+        ]);
+
         $response = $this->postJson('/api/login', [
             'email' => $email === '' ? $user->email : $email,
-            'password' => $password
+            'password' => $password,
         ]);
 
         return $response;

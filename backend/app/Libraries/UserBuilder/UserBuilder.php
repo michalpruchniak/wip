@@ -4,8 +4,26 @@ namespace App\Libraries\UserBuilder;
 
 class UserBuilder
 {
-    private $userFields = ['email', 'password'];
-    private $profileFields = ['name', 'lastname', 'email', 'description', 'job', 'testing_systems', 'raporting_systems', 'selenium', 'ide', 'programming_languages', 'mysql', 'methodology', 'scrum'];
+    private $userFields = [
+        'email',
+        'password'
+    ];
+
+    private $profileFields = [
+        'name',
+        'lastname',
+        'email',
+        'description',
+        'job',
+        'testing_systems',
+        'raporting_systems',
+        'selenium',
+        'ide',
+        'programming_languages',
+        'mysql',
+        'methodology',
+        'scrum'
+    ];
 
     private $user = [];
     private $profile = [];
@@ -26,17 +44,22 @@ class UserBuilder
     public function build(): bool
     {
         $userService = new UserService();
-        $success = $userService->create($this->getUserData(), $this->getProfileData());
 
-        return $success;
+        return $userService->create(
+            $this->getUserData(),
+            $this->getProfileData()
+        );
     }
 
     public function update(int $userId): bool
     {
         $userService = new UserService();
-        $success = $userService->update($userId, $this->getUserData(), $this->getProfileData());
 
-        return $success;
+        return $userService->update(
+            $userId,
+            $this->getUserData(),
+            $this->getProfileData()
+        );
     }
 
     private function getUserData(): array

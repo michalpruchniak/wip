@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterRequest;
 use App\Libraries\UserBuilder\UserBuilder;
 use App\Models\User;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Throwable;
 
 class AdminController extends Controller
 {
@@ -34,14 +35,14 @@ class AdminController extends Controller
         try {
 
             if (Auth::user()->id === $user->id) {
-                abort(500);
+                \abort(500);
             } else {
                 $user->profile()->delete();
                 $user->delete();
                 return json_encode(['status' => Auth::user()->id . ' ' . $id]);
             }
-        } catch (Exception $e) {
-            return response('You can\'t remove this user', 500);
+        } catch (Throwable) {
+            \abort(500);
         }
     }
 
@@ -51,7 +52,7 @@ class AdminController extends Controller
         return $user;
     }
 
-    public function update(Request $request, $id)
+    public function update(RegisterRequest $request, $id)
     {
         try {
             $user = new UserBuilder();
@@ -59,7 +60,7 @@ class AdminController extends Controller
             $user->update($id);
 
             return json_encode(['success' => true]);
-        } catch (Exception $e) {
+        } catch (Throwable) {
             \abort(403);
         }
     }

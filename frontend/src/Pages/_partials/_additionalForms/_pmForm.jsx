@@ -3,7 +3,8 @@ const PMForm = ({ register, errors }) => {
     <>
       <div className="form-group mt-3">
         <label htmlFor="methodology">
-          Metodologie prowadzenia projektów<span class="text-danger">*</span>
+          Metodologie prowadzenia projektów
+          <span className="text-danger">*</span>
         </label>
         <input
           id="methodology"
@@ -37,7 +38,7 @@ const PMForm = ({ register, errors }) => {
 
       <div className="form-group mt-3">
         <label htmlFor="raporting_systems">
-          Systemy raportowe <span class="text-danger">*</span>
+          Systemy raportowe <span className="text-danger">*</span>
         </label>
         <input
           id="raporting_systems"

@@ -31,7 +31,7 @@ const UserTableRow = ({ user, key, deleted }) => {
             Czy na pewno chcesz usunąć tego usera?
           </h4>
           <div
-            class="btn-group d-flex justify-content-center"
+            className="btn-group d-flex justify-content-center"
             role="group"
             aria-label="Basic example"
           >
@@ -49,7 +49,7 @@ const UserTableRow = ({ user, key, deleted }) => {
 
   return (
     <>
-      <tr key={key} className="singleUser">
+      <tr key={key} className="single-user">
         <td>{user.profile.name}</td>
         <td>{user.profile.lastname}</td>
         <td>{user.profile.email}</td>

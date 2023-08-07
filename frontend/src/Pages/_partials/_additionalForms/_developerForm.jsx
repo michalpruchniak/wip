@@ -3,7 +3,7 @@ const DeveloperForm = ({ register, errors }) => {
     <>
       <div className="form-group mt-3">
         <label htmlFor="ide">
-          Środowiska ide<span class="text-danger">*</span>
+          Środowiska ide<span className="text-danger">*</span>
         </label>
         <input
           id="ide"
@@ -35,7 +35,7 @@ const DeveloperForm = ({ register, errors }) => {
 
       <div className="form-group mt-3">
         <label htmlFor="programming_languages">
-          Języki programowania<span class="text-danger">*</span>
+          Języki programowania<span className="text-danger">*</span>
         </label>
         <input
           id="programming_languages"

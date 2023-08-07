@@ -9,6 +9,7 @@ import axios from "axios";
 import Admin from "./Pages/Admin";
 import Edit from "./Pages/Edit";
 import LoginStore from "./Config/LoginStore";
+import Home from "./Pages/Home";
 
 axios.defaults.baseURL = "http://localhost/api/";
 axios.defaults.withCredentials = true;
@@ -31,6 +32,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" exact element={<Register />} />
+          <Route path="/home" exact element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/edit/:id" element={<Edit />} />

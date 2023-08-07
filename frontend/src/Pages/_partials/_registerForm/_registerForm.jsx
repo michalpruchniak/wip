@@ -16,6 +16,7 @@ const RegisterForm = ({
   errorMessage,
   buttonText,
   requestMethod,
+  goBack,
 }) => {
   const {
     reset,
@@ -35,16 +36,25 @@ const RegisterForm = ({
   const jobSelection = watch("job", "1");
   const [success, setSuccess] = useState(false);
   const [errorsRegister, setErrorsRegister] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (value) => {
+    setErrorsRegister(false);
+    setSuccess(false);
     axios[requestMethod](`/${url}`, value)
       .then(() => {
+        setLoading(true);
         setErrorsRegister(false);
         setSuccess(true);
         resetForm === true && reset();
       })
       .catch(() => {
         setErrorsRegister(true);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 400);
       });
   };
 
@@ -64,7 +74,7 @@ const RegisterForm = ({
         </div>
         <div className="form-group mt-3">
           <label htmlFor="name">
-            Imię <span class="text-danger">*</span>
+            Imię <span className="text-danger">*</span>
           </label>
           <input
             id="name"
@@ -89,7 +99,7 @@ const RegisterForm = ({
         </div>
         <div className="form-group mt-3">
           <label htmlFor="lastname">
-            Nazwisko <span class="text-danger">*</span>
+            Nazwisko <span className="text-danger">*</span>
           </label>
           <input
             id="lastname"
@@ -114,7 +124,7 @@ const RegisterForm = ({
         </div>
         <div className="form-group mt-3">
           <label htmlFor="name">
-            Adres email <span class="text-danger">*</span>
+            Adres email <span className="text-danger">*</span>
           </label>
           <input
             id="email"
@@ -140,9 +150,7 @@ const RegisterForm = ({
         </div>
 
         <div className="form-group mt-3">
-          <label htmlFor="jobSelection">
-            Stanowisko <span class="text-danger">*</span>
-          </label>
+          <label htmlFor="jobSelection">Stanowisko</label>
           <div>
             <select
               id="jobSelection"
@@ -169,9 +177,14 @@ const RegisterForm = ({
           <PMForm key="pm" register={register} errors={errors} />
         )}
         <div className="form-group mt-3">
-          <button className="btn btn-primary" type="submit">
+          <button className="btn btn-primary" type="submit" disabled={loading}>
             {buttonText}
           </button>
+          {goBack && (
+            <a className="btn btn-secondary" onClick={goBack}>
+              Wróć
+            </a>
+          )}
         </div>
       </form>
     </>
