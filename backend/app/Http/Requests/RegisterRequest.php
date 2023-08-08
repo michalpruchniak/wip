@@ -25,7 +25,7 @@ class RegisterRequest extends FormRequest
             'email' => 'required|email|unique:users',
             'name' => 'required|string|between:3,30',
             'lastname' => 'required|string|between:3,35',
-            'description' => 'nullable',
+            'description' => 'nullable|string|max:200',
             'job' => 'required|integer|between:1,3',
 
             'testing_systems' => 'required_if:job,1|string|between:3,100|nullable',

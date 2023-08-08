@@ -144,9 +144,14 @@ const RegisterForm = ({
           <textarea
             id="description"
             className="form-control"
-            rows={5}
-            {...register("description")}
+            rows={2}
+            {...register("description", {
+              maxLength: 200,
+            })}
           ></textarea>
+          {errors.description?.type === "maxLength" && (
+            <Message>Opis może zwierać maksymalnie 200 znaków.</Message>
+          )}
         </div>
 
         <div className="form-group mt-3">
